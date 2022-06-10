@@ -21,7 +21,7 @@ public class FakerService {
     public String letters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     public String cryllic = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-    public List<UserDto> getGeneretedData(FakerDto fakerDto){
+    public List<UserDto> getGeneretedData(FakerDto fakerDto,Integer dataLength){
 
         if (fakerDto==null)return null;
 
@@ -31,17 +31,40 @@ public class FakerService {
                 new Locale(fakerDto.getSelectedCountry()),
                 new Random(fakerDto.getSeedNumber()));
 
-        for (int i = 0; i < 20; i++) {
-            UserDto userDto = new UserDto(
-                    "" + dataFaker.number().numberBetween(10000, 99999),
-                    dataFaker.name().fullName(),
-                    dataFaker.address().fullAddress(),
-                    dataFaker.phoneNumber().phoneNumber()
-            );
-            errors(userDto, fakerDto.getErrorRange(),fakerDto.getSelectedCountry());
-            generetedData.add(userDto);
+        if (dataLength<20){
+            for (int i = 0; i < 20; i++) {
+                UserDto userDto = new UserDto(
+                        "" + dataFaker.number().numberBetween(10000, 99999),
+                        dataFaker.name().fullName(),
+                        dataFaker.address().fullAddress(),
+                        dataFaker.phoneNumber().phoneNumber()
+                );
+                errors(userDto, fakerDto.getErrorRange(),fakerDto.getSelectedCountry());
+                generetedData.add(userDto);
 
+            }
+        }else{
+            for (int i = 0; i < dataLength + 10; i++) {
+                if (i>=dataLength){
+                    UserDto userDto = new UserDto(
+                            "" + dataFaker.number().numberBetween(10000, 99999),
+                            dataFaker.name().fullName(),
+                            dataFaker.address().fullAddress(),
+                            dataFaker.phoneNumber().phoneNumber()
+                    );
+                    errors(userDto, fakerDto.getErrorRange(),fakerDto.getSelectedCountry());
+                    generetedData.add(userDto);
+                }else{
+                    new UserDto(
+                            "" + dataFaker.number().numberBetween(10000, 99999),
+                            dataFaker.name().fullName(),
+                            dataFaker.address().fullAddress(),
+                            dataFaker.phoneNumber().phoneNumber()
+                    );
+                }
+            }
         }
+
 
         return generetedData;
     }

@@ -25,16 +25,16 @@ public class HomeController {
 
     @GetMapping
     public String getHomePage(Model model,
-                              @RequestParam(required = false) String selectedCountry,
-                              @RequestParam(required = false) String errorRange,
-                              @RequestParam(required = false) Integer seedNumber) {
+                              @RequestParam(required = false,defaultValue = "ru") String selectedCountry,
+                              @RequestParam(required = false,defaultValue = "0") String errorRange,
+                              @RequestParam(required = false,defaultValue = "0") Integer seedNumber) {
 
         List<UserDto> generetedData = null;
 
         if (selectedCountry!=null && errorRange!=null && seedNumber !=null){
             Double error = Double.parseDouble(errorRange);
             FakerDto fakerDto = new FakerDto(selectedCountry, error, seedNumber);
-            generetedData = fakerService.getGeneretedData(fakerDto);
+            generetedData = fakerService.getGeneretedData(fakerDto,0);
         }
 
         model.addAttribute("selectedCountry",selectedCountry);

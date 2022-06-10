@@ -57,7 +57,7 @@
         </div>
 
         <div class="container table-responsive div" style="overflow: scroll;max-height: 400px">
-        <table class="table table-bordered table-sm" style="background: #fff;text-align: center">
+        <table id="tableData" class="table table-bordered table-sm" style="background: #fff;text-align: center">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -118,12 +118,14 @@
     function getTenGeneretedData(){
         console.log("faker processing");
 
+        var dataLength = $('#tableData tr').length;
+        console.log("Data Length : " + dataLength);
         selectedCountry = document.getElementById("country").value;
         errorRange = document.getElementById("errorPerRecord").value;
         seedNumber = document.getElementById("seedValue").value;
         console.log(selectedCountry + " | " + errorRange + " | " + seedNumber);
 
-        fetch("/api/generate", {
+        fetch("/api/generate/"+dataLength, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -145,12 +147,6 @@
                             selectedCountry='';
                             errorRange='';
                             seedNumber='';
-
-                            // console.log(res);
-                            // res.map(user => {
-                            //     appendFakerData(user);
-                            // })
-
                         })
                     }
                 }
