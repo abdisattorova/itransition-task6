@@ -20,7 +20,8 @@ public class FakerController {
     private final FakerService fakerService;
 
     @PostMapping("/generate/{dataLength}")
-    public List<UserDto> getFakerData(@RequestBody FakerDto fakerDto, @PathVariable Integer dataLength){
+    public List<UserDto> getFakerData(@RequestBody FakerDto fakerDto,
+                                      @PathVariable Integer dataLength){
         return fakerService.getGeneretedData(fakerDto,dataLength);
     }
 

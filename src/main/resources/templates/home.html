@@ -13,8 +13,10 @@
 </script>
 <body>
 <nav class="navbar navbar-expand-lg" style="background: #efefef">
-    <a style="color: #000;text-decoration: none" class="navbar-brand" href="#"><img style="width: 45px;border-radius: 50%;" th:src="@{/images.jpeg}"> Itransition Group</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a style="color: #000;text-decoration: none" class="navbar-brand" href="#">
+        <img style="width: 45px;border-radius: 50%;" th:src="@{mock.png}"> Fake data generator </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -27,11 +29,18 @@
             <form th:action="@{/}" method="GET">
                 <div class="row form-group  align-items-end">
                     <div class="col-md-2">
+
                         <select id="country" class="custom-select" name="selectedCountry">
-                            <option th:selected="${selectedCountry==null}">Select country</option>
-                            <option th:value="en-GB" th:selected="${selectedCountry!=null && selectedCountry=='en-GB'}">English</option>
-                            <option th:value="ru" th:selected="${selectedCountry!=null && selectedCountry=='ru'}">Russian</option>
-                            <option th:value="fr" th:selected="${selectedCountry!=null && selectedCountry=='fr'}">French</option>
+                            <option th:selected="${selectedCountry==null}">Select a country</option>
+                            <option th:value="en-GB" th:selected="${selectedCountry!=null && selectedCountry=='en-GB'}">
+                                England
+                            </option>
+                            <option th:value="ru" th:selected="${selectedCountry!=null && selectedCountry=='ru'}">
+                                Russia
+                            </option>
+                            <option th:value="fr" th:selected="${selectedCountry!=null && selectedCountry=='fr'}">
+                                France
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -43,79 +52,84 @@
                                name="errorRange" th:value="${errorRange!=null ? errorRange : ''}">
                     </div>
                     <div class="col-md-2">
-                        <input type="number" class="form-control typeahead" id="seedValue" name="seedNumber" placeholder="Seed"
+                        <input type="number" class="form-control typeahead" id="seedValue" name="seedNumber"
+                               placeholder="Seed"
                                data-provide="typeahead" th:value="${seedNumber!=null ? seedNumber : ''}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-info "><i class="fas fa-recycle"></i> Generate</button>
+                        <button type="submit" class="btn btn-primary ">Generate</button>
                     </div>
                     <div class="col-md-2">
-                        <button onclick="downloadData()" class="btn btn-success "><i class="fas fa-file-excel"></i> Export</button>
+                        <button onclick="downloadData()" class="btn btn-primary "><i class="fa fa-download"></i>
+                            Download
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
 
-        <div class="container table-responsive div" style="overflow: scroll;max-height: 400px">
-        <table id="tableData" class="table table-bordered table-sm" style="background: #fff;text-align: center">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Address</th>
-            <th scope="col">Phone</th>
-        </tr>
-        </thead>
-        <tbody id="fakerData">
-        <div th:if="${fakerDataList!=null}">
-        <th:block th:each="user,loop : ${fakerDataList}">
-        <tr scope="row">
-            <td>[[${loop.index+1}]]</td>
-            <td>[[${user.id}]]</td>
-            <td th:style="${user.isNameError ? 'color:red;' : ''}" th:text="${user.name}"></td>
-            <td th:style="${user.isAddressError ? 'color:red;' : ''}" th:text="${user.address}"></td>
-            <td th:style="${user.isPhoneError ? 'color:red;' : ''}" th:text="${user.phone}"></td>
-        </tr>
-        </th:block>
-        </div>
-        <div th:if="${fakerDataList==null}">
-            <tr scope="row">
-                <td colspan="5">No Data</td>
-            </tr>
-        </div>
-        </tbody>
-        <tbody></tbody>
-        </table>
+        <div class="container table-responsive div"
+             style="overflow: scroll;max-height: 400px">
+            <table id="tableData" class="table table-bordered table-sm" style="
+        background: #fff;text-align: center">
+                <thead style="position: sticky; top: 0;" class="thead-light">
+                <tr>
+                    <th style="background-color: deepskyblue" scope="col">#</th>
+                    <th style="background-color: deepskyblue" scope="col">Id</th>
+                    <th style="background-color: deepskyblue" scope="col">Name</th>
+                    <th style="background-color: deepskyblue" scope="col">Address</th>
+                    <th style="background-color: deepskyblue" scope="col">Phone</th>
+                </tr>
+                </thead>
+                <tbody id="tableBody">
+                <div th:if="${fakerDataList!=null}">
+                    <th:block th:each="user,loop : ${fakerDataList}">
+                        <tr scope="row">
+                            <td>[[${loop.index+1}]]</td>
+                            <td>[[${user.id}]]</td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.address}"></td>
+                            <td th:text="${user.phone}"></td>
+                        </tr>
+                    </th:block>
+                </div>
+                <div th:if="${fakerDataList==null}">
+                    <tr scope="row">
+                        <td colspan="5">No Data</td>
+                    </tr>
+                </div>
+                </tbody>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 </div>
 <script>
 
-    var selectedCountry=null;
-    var errorRange=null;
-    var seedNumber=null;
+    var selectedCountry = null;
+    var errorRange = null;
+    var seedNumber = null;
 
     //scroll
-    var indexId=20;
+    var indexId = 20;
 
-    jQuery(function($) {
-        $('.container .table-responsive .div').on('scroll', function() {
+    jQuery(function ($) {
+        $('.container .table-responsive .div').on('scroll', function () {
             if ($(this).scrollTop() +
                 $(this).innerHeight() >=
                 $(this)[0].scrollHeight) {
-                myFunction();
+                getTenGeneretedData();
             }
         });
     });
 
-    function myFunction() {
-        if (confirm("Do you want to Generate 10 data again!")) {
-            getTenGeneretedData();
-        }
-    }
+    // function myFunction() {
+    //     if (confirm("Do you want to Generate 10 data again!")) {
+    //         getTenGeneretedData();
+    //     }
+    // }
 
-    function getTenGeneretedData(){
+    function getTenGeneretedData() {
         console.log("faker processing");
 
         var dataLength = $('#tableData tr').length;
@@ -125,7 +139,7 @@
         seedNumber = document.getElementById("seedValue").value;
         console.log(selectedCountry + " | " + errorRange + " | " + seedNumber);
 
-        fetch("/api/generate/"+dataLength, {
+        fetch("/api/generate/" + dataLength, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -142,18 +156,18 @@
                         response.json().then(res => {
                             for (let i = 0; i < res.length; i++) {
                                 indexId++;
-                                appendFakerData(res[i],indexId);
+                                appendFakerData(res[i], indexId);
                             }
-                            selectedCountry='';
-                            errorRange='';
-                            seedNumber='';
+                            selectedCountry = '';
+                            errorRange = '';
+                            seedNumber = '';
                         })
                     }
                 }
             )
     }
 
-    function appendFakerData(user,i) {
+    function appendFakerData(user, i) {
 
         console.log(user);
         var nameError = user.nameError ? 'color:red;' : '';
@@ -162,16 +176,16 @@
 
         $("#fakerData").append(
             "<tr>" +
-            "<td>"+i+"</td>\n" +
-            "<td >"+user.id+"</td>\n" +
-            "<td style='"+nameError+"'>"+user.name+"</td>\n" +
-            "<td style='"+addressError+"'>"+user.address+"</td>\n" +
-            "<td style='"+phoneError+"'>"+user.phone+"</td>"+
+            "<td>" + i + "</td>\n" +
+            "<td >" + user.id + "</td>\n" +
+            "<td style='" + nameError + "'>" + user.name + "</td>\n" +
+            "<td style='" + addressError + "'>" + user.address + "</td>\n" +
+            "<td style='" + phoneError + "'>" + user.phone + "</td>" +
             "</tr>");
     }
 
     //export to csv
-    function downloadData(){
+    function downloadData() {
         exportTableToCSV('data.csv', ',');
     }
 
@@ -179,7 +193,7 @@
         let csvFile;
         let downloadLink;
 
-        csvFile = new Blob([csv], { type: 'text/csv' });
+        csvFile = new Blob([csv], {type: 'text/csv'});
 
         downloadLink = document.createElement('a');
 
@@ -216,9 +230,8 @@
     }
 
 
-
     function updateTextInput(val) {
-        document.getElementById('errorPerRecord').value=val;
+        document.getElementById('errorPerRecord').value = val;
     }
 
 </script>
