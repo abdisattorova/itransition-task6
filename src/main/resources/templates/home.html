@@ -13,8 +13,8 @@
 </script>
 <body>
 <nav class="navbar navbar-expand-lg" style="background: #efefef">
-    <a style="color: #000;text-decoration: none" class="navbar-brand" href="#">
-        <img style="width: 45px;border-radius: 50%;" th:src="@{mock.png}"> Fake data generator </a>
+    <a style="color: #000;text-decoration: none" class="navbar-brand" href="#"><img
+            style="width: 45px;border-radius: 50%;" th:src="@{mock.png}"> Fake data generator </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -57,7 +57,7 @@
                                data-provide="typeahead" th:value="${seedNumber!=null ? seedNumber : ''}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary ">Generate</button>
+                        <button type="submit" class="btn btn-primary">Generate</button>
                     </div>
                     <div class="col-md-2">
                         <button onclick="downloadData()" class="btn btn-primary "><i class="fa fa-download"></i>
@@ -68,28 +68,28 @@
             </form>
         </div>
 
-        <div class="container table-responsive div"
-             style="overflow: scroll;max-height: 400px">
+        <div class="container table-responsive div" style="overflow: scroll;max-height: 400px">
             <table id="tableData" class="table table-bordered table-sm" style="
         background: #fff;text-align: center">
-                <thead style="position: sticky; top: 0;" class="thead-light">
+                <thead>
                 <tr>
                     <th style="background-color: deepskyblue" scope="col">#</th>
                     <th style="background-color: deepskyblue" scope="col">Id</th>
                     <th style="background-color: deepskyblue" scope="col">Name</th>
                     <th style="background-color: deepskyblue" scope="col">Address</th>
-                    <th style="background-color: deepskyblue" scope="col">Phone</th>
+                    <th style="background-color: deepskyblue" scope="col">Phone
+                    </th>
                 </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody id="fakerData">
                 <div th:if="${fakerDataList!=null}">
                     <th:block th:each="user,loop : ${fakerDataList}">
                         <tr scope="row">
                             <td>[[${loop.index+1}]]</td>
                             <td>[[${user.id}]]</td>
-                            <td th:text="${user.name}"></td>
-                            <td th:text="${user.address}"></td>
-                            <td th:text="${user.phone}"></td>
+                            <td th:style="${user.isNameError ? 'color:red;' : ''}" th:text="${user.name}"></td>
+                            <td th:style="${user.isAddressError ? 'color:red;' : ''}" th:text="${user.address}"></td>
+                            <td th:style="${user.isPhoneError ? 'color:red;' : ''}" th:text="${user.phone}"></td>
                         </tr>
                     </th:block>
                 </div>
