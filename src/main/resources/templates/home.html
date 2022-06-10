@@ -159,13 +159,18 @@
 
     function appendFakerData(user,i) {
 
+        console.log(user);
+        var nameError = user.nameError ? 'color:red;' : '';
+        var addressError = user.addressError ? 'color:red;' : '';
+        var phoneError = user.phoneError ? 'color:red;' : '';
+
         $("#fakerData").append(
             "<tr>" +
             "<td>"+i+"</td>\n" +
-            "<td>"+user.id+"</td>\n" +
-            "<td>"+user.name+"</td>\n" +
-            "<td>"+user.address+"</td>\n" +
-            "<td>"+user.phone+"</td>"+
+            "<td >"+user.id+"</td>\n" +
+            "<td style='"+nameError+"'>"+user.name+"</td>\n" +
+            "<td style='"+addressError+"'>"+user.address+"</td>\n" +
+            "<td style='"+phoneError+"'>"+user.phone+"</td>"+
             "</tr>");
     }
 
