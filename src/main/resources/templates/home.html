@@ -87,9 +87,9 @@
                         <tr scope="row">
                             <td>[[${loop.index+1}]]</td>
                             <td>[[${user.id}]]</td>
-                            <td th:style="${user.isNameError ? 'color:red;' : ''}" th:text="${user.name}"></td>
-                            <td th:style="${user.isAddressError ? 'color:red;' : ''}" th:text="${user.address}"></td>
-                            <td th:style="${user.isPhoneError ? 'color:red;' : ''}" th:text="${user.phone}"></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.address}"></td>
+                            <td th:text="${user.phone}"></td>
                         </tr>
                     </th:block>
                 </div>
