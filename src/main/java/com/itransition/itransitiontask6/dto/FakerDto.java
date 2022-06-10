@@ -1,7 +1,6 @@
 package com.itransition.itransitiontask6.dto;
 
 
-// Asatbek Xalimjonov 6/9/22 3:05 PM
 
 
 import lombok.AllArgsConstructor;

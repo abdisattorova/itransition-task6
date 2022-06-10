@@ -1,7 +1,6 @@
 package com.itransition.itransitiontask6.controller;
 
 
-// Asatbek Xalimjonov 6/9/22 11:04 AM
 
 import com.itransition.itransitiontask6.dto.FakerDto;
 import com.itransition.itransitiontask6.dto.UserDto;
